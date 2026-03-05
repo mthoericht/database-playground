@@ -1,6 +1,6 @@
 # 🗄️ Datenbank Playground
 
-Interaktive SQL-Lernumgebung mit **Vue.js**, **Vite**, **TypeScript** und **SQLite**.
+Interaktive SQL-Lernumgebung mit **Vue.js**, **Vite**, **TypeScript**, **Pinia** und **SQLite**.
 
 ## Features
 
@@ -23,14 +23,18 @@ Interaktive SQL-Lernumgebung mit **Vue.js**, **Vite**, **TypeScript** und **SQLi
 │   ├── index.ts            # Express-Backend (API-Endpunkte)
 │   └── seed.ts             # Datenbank-Schema & Initialdaten
 ├── src/
-│   ├── components/         # Vue-Komponenten
-│   ├── composables/        # Vue Composables (Logik)
-│   │   ├── useDatabase.ts      # API-Aufrufe, Query-Ausführung, Reset
-│   │   ├── useTableDetail.ts   # Schema & Daten einer Tabelle laden
+│   ├── components/           # Vue-Komponenten
+│   ├── api/
+│   │   └── DatabaseApi.ts    # Zentrale API-Klasse für alle HTTP-Calls
+│   ├── stores/
+│   │   └── databaseStore.ts  # Pinia-Store für Tabellen, Query-Result, Fehlerzustände
+│   ├── composables/          # Vue Composables (UI-nahe Logik)
+│   │   ├── useDatabase.ts      # Wrapper um Pinia-Store (Database-State & Actions)
+│   │   ├── useTableDetail.ts   # Schema & Daten einer Tabelle laden (nutzt DatabaseApi)
 │   │   └── useSqlTemplates.ts  # Kategorien-Filter für Vorlagen
 │   ├── data/
-│   │   └── sqlTemplates.ts # SQL-Vorlagen & Kategorien
-│   └── types.ts            # TypeScript-Interfaces
+│   │   └── sqlTemplates.ts   # SQL-Vorlagen & Kategorien
+│   └── types.ts              # TypeScript-Interfaces
 ├── data/                   # SQLite-Datenbankdatei (generiert)
 ```
 

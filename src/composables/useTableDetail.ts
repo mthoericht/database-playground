@@ -1,5 +1,6 @@
 import { ref } from 'vue'
 import type { TableSchema } from '../types'
+import { DatabaseApi } from '../api/DatabaseApi'
 
 export function useTableDetail() {
   const schema = ref<TableSchema>({ columns: [], foreignKeys: [] })
@@ -9,12 +10,12 @@ export function useTableDetail() {
   async function loadTableDetail(name: string): Promise<void> {
     loading.value = true
     try {
-      const [schemaRes, dataRes] = await Promise.all([
-        fetch(`/api/tables/${name}/schema`),
-        fetch(`/api/tables/${name}/data`)
+      const [schemaResult, rowsResult] = await Promise.all([
+        DatabaseApi.getTableSchema(name),
+        DatabaseApi.getTableData(name),
       ])
-      schema.value = await schemaRes.json()
-      rows.value = await dataRes.json()
+      schema.value = schemaResult
+      rows.value = rowsResult
     } catch (e) {
       console.error(e)
     } finally {
