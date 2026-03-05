@@ -2,7 +2,12 @@
   <div class="table-browser">
     <div class="browser-header">
       <h3>📋 Tabellen & Views</h3>
-      <button class="btn-secondary btn-sm" @click="$emit('refresh')">↻</button>
+      <button
+        class="btn-secondary btn-sm"
+        @click="$emit('refresh')"
+      >
+        ↻
+      </button>
     </div>
     <ul class="table-list">
       <li
@@ -13,25 +18,33 @@
       >
         <span class="table-icon">{{ entry.type === 'view' ? '👁️' : '📄' }}</span>
         {{ entry.name }}
-        <span v-if="entry.type === 'view'" class="type-badge">VIEW</span>
+        <span
+          v-if="entry.type === 'view'"
+          class="type-badge"
+        >VIEW</span>
       </li>
     </ul>
-    <p v-if="tables.length === 0" class="empty">Keine Tabellen vorhanden</p>
+    <p
+      v-if="tables.length === 0"
+      class="empty"
+    >
+      Keine Tabellen vorhanden
+    </p>
   </div>
 </template>
 
 <script setup lang="ts">
-import type { TableEntry } from '../types'
+import type { TableEntry } from '../types';
 
 defineProps<{
   tables: TableEntry[]
   activeTable: string | null
-}>()
+}>();
 
 defineEmits<{
   select: [name: string]
   refresh: []
-}>()
+}>();
 </script>
 
 <style scoped>

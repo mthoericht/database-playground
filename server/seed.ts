@@ -1,4 +1,4 @@
-import type Database from 'better-sqlite3'
+import type Database from 'better-sqlite3';
 
 type KundeRow = [string, string, string, string, number]
 type ProduktRow = [string, string, number, number]
@@ -31,7 +31,7 @@ const schema = `
     FOREIGN KEY (kunden_id) REFERENCES kunden(id),
     FOREIGN KEY (produkt_id) REFERENCES produkte(id)
   );
-`
+`;
 
 const kunden: KundeRow[] = [
   ['Max', 'Mustermann', 'max@example.com', 'Berlin', 30],
@@ -42,7 +42,7 @@ const kunden: KundeRow[] = [
   ['Sarah', 'Wagner', 'sarah@example.com', 'München', 22],
   ['Jan', 'Koch', 'jan@example.com', 'Frankfurt', 40],
   ['Laura', 'Richter', 'laura@example.com', 'Hamburg', 33],
-]
+];
 
 const produkte: ProduktRow[] = [
   ['Laptop', 'Elektronik', 999.99, 15],
@@ -55,7 +55,7 @@ const produkte: ProduktRow[] = [
   ['Regal', 'Möbel', 89.99, 30],
   ['Notizbuch', 'Büro', 9.99, 200],
   ['Kugelschreiber', 'Büro', 2.99, 500],
-]
+];
 
 const bestellungen: BestellungRow[] = [
   [1, 1, 1, '2025-01-15'],
@@ -72,28 +72,29 @@ const bestellungen: BestellungRow[] = [
   [8, 3, 1, '2025-05-01'],
   [1, 6, 1, '2025-05-10'],
   [3, 7, 1, '2025-05-15'],
-]
+];
 
-export function seedDatabase(db: Database.Database): void {
-  db.exec(schema)
+export function seedDatabase(db: Database.Database): void 
+{
+  db.exec(schema);
 
-  const kundenCount = db.prepare('SELECT COUNT(*) as count FROM kunden').get() as { count: number }
-  if (kundenCount.count > 0) return
+  const kundenCount = db.prepare('SELECT COUNT(*) as count FROM kunden').get() as { count: number };
+  if (kundenCount.count > 0) return;
 
   const insertKunde = db.prepare(
     'INSERT INTO kunden (vorname, nachname, email, stadt, alter_jahre) VALUES (?, ?, ?, ?, ?)'
-  )
-  for (const k of kunden) insertKunde.run(...k)
+  );
+  for (const k of kunden) insertKunde.run(...k);
 
   const insertProdukt = db.prepare(
     'INSERT INTO produkte (name, kategorie, preis, lagerbestand) VALUES (?, ?, ?, ?)'
-  )
-  for (const p of produkte) insertProdukt.run(...p)
+  );
+  for (const p of produkte) insertProdukt.run(...p);
 
   const insertBestellung = db.prepare(
     'INSERT INTO bestellungen (kunden_id, produkt_id, menge, bestell_datum) VALUES (?, ?, ?, ?)'
-  )
-  for (const b of bestellungen) insertBestellung.run(...b)
+  );
+  for (const b of bestellungen) insertBestellung.run(...b);
 
-  console.log('Datenbank mit Beispieldaten befüllt.')
+  console.log('Datenbank mit Beispieldaten befüllt.');
 }

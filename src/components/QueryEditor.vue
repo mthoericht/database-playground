@@ -3,8 +3,17 @@
     <div class="editor-header">
       <h2>✍️ Eigener SQL-Befehl</h2>
       <div class="editor-actions">
-        <button class="btn-secondary btn-sm" @click="clear">Leeren</button>
-        <button class="btn-primary" @click="run" :disabled="!sql.trim()">
+        <button
+          class="btn-secondary btn-sm"
+          @click="clear"
+        >
+          Leeren
+        </button>
+        <button
+          class="btn-primary"
+          :disabled="!sql.trim()"
+          @click="run"
+        >
           ▶ Ausführen
         </button>
       </div>
@@ -17,27 +26,32 @@
       spellcheck="false"
       @keydown.ctrl.enter="run"
       @keydown.meta.enter="run"
-    ></textarea>
-    <p class="hint">Tipp: <kbd>Ctrl</kbd> + <kbd>Enter</kbd> zum Ausführen</p>
+    />
+    <p class="hint">
+      Tipp: <kbd>Ctrl</kbd> + <kbd>Enter</kbd> zum Ausführen
+    </p>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref } from 'vue';
 
 const emit = defineEmits<{
   run: [sql: string]
-}>()
-const sql = ref<string>('')
+}>();
+const sql = ref<string>('');
 
-function run(): void {
-  if (sql.value.trim()) {
-    emit('run', sql.value.trim())
+function run(): void 
+{
+  if (sql.value.trim()) 
+  {
+    emit('run', sql.value.trim());
   }
 }
 
-function clear(): void {
-  sql.value = ''
+function clear(): void 
+{
+  sql.value = '';
 }
 </script>
 

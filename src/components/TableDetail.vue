@@ -1,12 +1,25 @@
 <template>
-  <div class="overlay" @click.self="$emit('close')">
+  <div
+    class="overlay"
+    @click.self="$emit('close')"
+  >
     <div class="detail-panel">
       <div class="detail-header">
         <h2>📄 {{ table }}</h2>
-        <button class="btn-secondary btn-sm" @click="$emit('close')">✕</button>
+        <button
+          class="btn-secondary btn-sm"
+          @click="$emit('close')"
+        >
+          ✕
+        </button>
       </div>
 
-      <div v-if="loading" class="loading">Laden...</div>
+      <div
+        v-if="loading"
+        class="loading"
+      >
+        Laden...
+      </div>
 
       <template v-else>
         <section class="section">
@@ -22,7 +35,10 @@
               </tr>
             </thead>
             <tbody>
-              <tr v-for="col in schema.columns" :key="col.name">
+              <tr
+                v-for="col in schema.columns"
+                :key="col.name"
+              >
                 <td><strong>{{ col.name }}</strong></td>
                 <td><code>{{ col.type || 'ANY' }}</code></td>
                 <td>{{ col.notnull ? '✓' : '' }}</td>
@@ -33,7 +49,10 @@
           </table>
         </section>
 
-        <section v-if="schema.foreignKeys?.length" class="section">
+        <section
+          v-if="schema.foreignKeys?.length"
+          class="section"
+        >
           <h3>Fremdschlüssel</h3>
           <table class="data-table">
             <thead>
@@ -44,7 +63,10 @@
               </tr>
             </thead>
             <tbody>
-              <tr v-for="fk in schema.foreignKeys" :key="fk.from">
+              <tr
+                v-for="fk in schema.foreignKeys"
+                :key="fk.from"
+              >
                 <td>{{ fk.from }}</td>
                 <td>{{ fk.table }}</td>
                 <td>{{ fk.to }}</td>
@@ -56,19 +78,40 @@
         <section class="section">
           <h3>Daten (max. 100 Zeilen)</h3>
           <div class="table-scroll">
-            <table v-if="rows.length" class="data-table">
+            <table
+              v-if="rows.length"
+              class="data-table"
+            >
               <thead>
                 <tr>
-                  <th v-for="col in Object.keys(rows[0])" :key="col">{{ col }}</th>
+                  <th
+                    v-for="col in Object.keys(rows[0])"
+                    :key="col"
+                  >
+                    {{ col }}
+                  </th>
                 </tr>
               </thead>
               <tbody>
-                <tr v-for="(row, i) in rows" :key="i">
-                  <td v-for="col in Object.keys(row)" :key="col">{{ row[col] }}</td>
+                <tr
+                  v-for="(row, i) in rows"
+                  :key="i"
+                >
+                  <td
+                    v-for="col in Object.keys(row)"
+                    :key="col"
+                  >
+                    {{ row[col] }}
+                  </td>
                 </tr>
               </tbody>
             </table>
-            <p v-else class="empty">Keine Daten vorhanden</p>
+            <p
+              v-else
+              class="empty"
+            >
+              Keine Daten vorhanden
+            </p>
           </div>
         </section>
       </template>
@@ -77,22 +120,23 @@
 </template>
 
 <script setup lang="ts">
-import { watch } from 'vue'
-import { useTableDetail } from '../composables/useTableDetail'
+import { watch } from 'vue';
+import { useTableDetail } from '../composables/useTableDetail';
 
 const props = defineProps<{
   table: string
-}>()
+}>();
 
 defineEmits<{
   close: []
-}>()
+}>();
 
-const { schema, rows, loading, loadTableDetail } = useTableDetail()
+const { schema, rows, loading, loadTableDetail } = useTableDetail();
 
-watch(() => props.table, (name: string) => {
-  if (name) loadTableDetail(name)
-}, { immediate: true })
+watch(() => props.table, (name: string) => 
+{
+  if (name) loadTableDetail(name);
+}, { immediate: true });
 </script>
 
 <style scoped>

@@ -1,4 +1,4 @@
-import type { SqlCategory, SqlTemplate } from '../types'
+import type { SqlCategory, SqlTemplate } from '../types';
 
 export const categories: SqlCategory[] = [
   { key: 'abfragen', label: 'Abfragen', icon: '🔍' },
@@ -7,7 +7,7 @@ export const categories: SqlCategory[] = [
   { key: 'joins', label: 'Joins', icon: '🔗' },
   { key: 'mutation', label: 'Daten ändern', icon: '✏️' },
   { key: 'struktur', label: 'Struktur', icon: '🏗️' },
-]
+];
 
 export const templates: SqlTemplate[] = [
   // Abfragen
@@ -266,4 +266,4 @@ export const templates: SqlTemplate[] = [
     description: 'Eine gespeicherte Abfrage als View anlegen.',
     sql: "CREATE VIEW IF NOT EXISTS v_bestelluebersicht AS\nSELECT k.vorname || ' ' || k.nachname AS kunde,\n       p.name AS produkt,\n       b.menge,\n       p.preis * b.menge AS gesamt,\n       b.bestell_datum\nFROM bestellungen b\nJOIN kunden k ON b.kunden_id = k.id\nJOIN produkte p ON b.produkt_id = p.id;"
   },
-]
+];

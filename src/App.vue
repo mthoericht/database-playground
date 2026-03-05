@@ -5,14 +5,19 @@
         <h1>🗄️ Datenbank Playground</h1>
         <p>Interaktive SQL-Lernumgebung mit SQLite</p>
       </div>
-      <button class="btn-danger" @click="resetDatabase">🔄 Datenbank zurücksetzen</button>
+      <button
+        class="btn-danger"
+        @click="resetDatabase"
+      >
+        🔄 Datenbank zurücksetzen
+      </button>
     </header>
 
     <div class="layout">
       <aside class="sidebar">
         <TableBrowser
           :tables="tables"
-          :activeTable="activeTable"
+          :active-table="activeTable"
           @select="selectTable"
           @refresh="loadTables"
         />
@@ -23,7 +28,11 @@
 
         <QueryEditor @run="runQuery" />
 
-        <QueryResult :result="result" :error="error" :loading="loading" />
+        <QueryResult
+          :result="result"
+          :error="error"
+          :loading="loading"
+        />
       </main>
     </div>
 
@@ -36,20 +45,20 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted } from 'vue'
-import TableBrowser from './components/TableBrowser.vue'
-import TableDetail from './components/TableDetail.vue'
-import QueryTemplates from './components/QueryTemplates.vue'
-import QueryEditor from './components/QueryEditor.vue'
-import QueryResult from './components/QueryResult.vue'
-import { useDatabase } from './composables/useDatabase'
+import { onMounted } from 'vue';
+import TableBrowser from './components/TableBrowser.vue';
+import TableDetail from './components/TableDetail.vue';
+import QueryTemplates from './components/QueryTemplates.vue';
+import QueryEditor from './components/QueryEditor.vue';
+import QueryResult from './components/QueryResult.vue';
+import { useDatabase } from './composables/useDatabase';
 
 const {
   tables, activeTable, result, error, loading,
   loadTables, selectTable, runQuery, resetDatabase,
-} = useDatabase()
+} = useDatabase();
 
-onMounted(loadTables)
+onMounted(loadTables);
 </script>
 
 <style scoped>

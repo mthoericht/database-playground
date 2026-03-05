@@ -1,7 +1,9 @@
 <template>
   <div class="templates">
     <h2>📚 SQL-Vorlagen</h2>
-    <p class="subtitle">Klicke auf eine Vorlage, um sie auszuführen und das Ergebnis zu sehen.</p>
+    <p class="subtitle">
+      Klicke auf eine Vorlage, um sie auszuführen und das Ergebnis zu sehen.
+    </p>
 
     <div class="category-tabs">
       <button
@@ -25,22 +27,26 @@
           <span class="badge">{{ tpl.badge }}</span>
           <h4>{{ tpl.title }}</h4>
         </div>
-        <p class="description">{{ tpl.description }}</p>
+        <p class="description">
+          {{ tpl.description }}
+        </p>
         <pre class="sql-preview"><code>{{ tpl.sql }}</code></pre>
-        <button class="btn-primary btn-sm run-btn">▶ Ausführen</button>
+        <button class="btn-primary btn-sm run-btn">
+          ▶ Ausführen
+        </button>
       </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { useSqlTemplates } from '../composables/useSqlTemplates'
+import { useSqlTemplates } from '../composables/useSqlTemplates';
 
 defineEmits<{
   run: [sql: string]
-}>()
+}>();
 
-const { categories, activeCategory, filteredTemplates } = useSqlTemplates()
+const { categories, activeCategory, filteredTemplates } = useSqlTemplates();
 </script>
 
 <style scoped>

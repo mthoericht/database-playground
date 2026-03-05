@@ -1,29 +1,54 @@
 <template>
-  <div v-if="loading || result || error" class="result">
+  <div
+    v-if="loading || result || error"
+    class="result"
+  >
     <h2>📋 Ergebnis</h2>
 
-    <div v-if="loading" class="status loading">
+    <div
+      v-if="loading"
+      class="status loading"
+    >
       ⏳ Abfrage wird ausgeführt...
     </div>
 
-    <div v-else-if="error" class="status error">
+    <div
+      v-else-if="error"
+      class="status error"
+    >
       <strong>❌ Fehler:</strong> {{ error }}
     </div>
 
     <template v-else-if="result">
       <!-- SELECT-Ergebnis -->
       <template v-if="result.type === 'query'">
-        <p class="info">{{ result.rowCount }} Zeile(n) zurückgegeben</p>
-        <div v-if="result.rows?.length" class="table-scroll">
+        <p class="info">
+          {{ result.rowCount }} Zeile(n) zurückgegeben
+        </p>
+        <div
+          v-if="result.rows?.length"
+          class="table-scroll"
+        >
           <table class="data-table">
             <thead>
               <tr>
-                <th v-for="col in columns" :key="col">{{ col }}</th>
+                <th
+                  v-for="col in columns"
+                  :key="col"
+                >
+                  {{ col }}
+                </th>
               </tr>
             </thead>
             <tbody>
-              <tr v-for="(row, i) in result.rows" :key="i">
-                <td v-for="col in columns" :key="col">
+              <tr
+                v-for="(row, i) in result.rows"
+                :key="i"
+              >
+                <td
+                  v-for="col in columns"
+                  :key="col"
+                >
                   <span :class="{ null: row[col] === null }">
                     {{ row[col] === null ? 'NULL' : row[col] }}
                   </span>
@@ -32,7 +57,12 @@
             </tbody>
           </table>
         </div>
-        <p v-else class="info">Keine Ergebnisse.</p>
+        <p
+          v-else
+          class="info"
+        >
+          Keine Ergebnisse.
+        </p>
       </template>
 
       <!-- INSERT/UPDATE/DELETE-Ergebnis -->
@@ -50,21 +80,23 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
-import type { QueryResult } from '../types'
+import { computed } from 'vue';
+import type { QueryResult } from '../types';
 
 const props = defineProps<{
   result: QueryResult | null
   error: string | null
   loading: boolean
-}>()
+}>();
 
-const columns = computed<string[]>(() => {
-  if (props.result?.rows?.length) {
-    return Object.keys(props.result.rows[0])
+const columns = computed<string[]>(() => 
+{
+  if (props.result?.rows?.length) 
+  {
+    return Object.keys(props.result.rows[0]);
   }
-  return []
-})
+  return [];
+});
 </script>
 
 <style scoped>
