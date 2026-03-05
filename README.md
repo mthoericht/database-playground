@@ -1,2 +1,2 @@
-# databse-playground
+# database-playground
 simple playground for database-manipulations
