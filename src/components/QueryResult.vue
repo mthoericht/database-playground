@@ -65,14 +65,23 @@
         </p>
       </template>
 
-      <!-- INSERT/UPDATE/DELETE-Ergebnis -->
+      <!-- INSERT/UPDATE/DELETE/DDL-Ergebnis -->
       <template v-else>
         <div class="status success">
           <strong>✅ Erfolgreich!</strong>
-          {{ result.changes }} Zeile(n) betroffen.
-          <span v-if="result.lastInsertRowid">
-            Letzte ID: {{ result.lastInsertRowid }}
-          </span>
+          <template v-if="(result.changes ?? 0) > 0">
+            {{ result.changes }} Zeile(n) betroffen.
+            <span v-if="result.lastInsertRowid">
+              Letzte ID: {{ result.lastInsertRowid }}
+            </span>
+          </template>
+          <template v-else>
+            Befehl ausgeführt
+            <span v-if="result.lastInsertRowid">
+              (letzte ID: {{ result.lastInsertRowid }})
+            </span>
+            <span v-else>.</span>
+          </template>
         </div>
       </template>
     </template>

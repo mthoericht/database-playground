@@ -131,9 +131,8 @@ app.post('/api/reset', (_req: Request, res: Response) =>
   try 
   {
     db.pragma('foreign_keys = OFF');
-    const objects = db.prepare(
-      "SELECT type, name FROM sqlite_master WHERE name NOT LIKE 'sqlite_%' AND type IN ('table', 'view', 'index') ORDER BY type"
-    ).all() as { type: string; name: string }[];
+
+    const objects = db.prepare("SELECT type, name FROM sqlite_master WHERE name NOT LIKE 'sqlite_%' AND type IN ('table', 'view', 'index') ORDER BY type").all() as { type: string; name: string }[];
     for (const obj of objects) 
     {
       db.prepare(`DROP ${obj.type.toUpperCase()} IF EXISTS "${obj.name}"`).run();
