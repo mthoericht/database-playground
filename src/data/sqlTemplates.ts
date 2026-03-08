@@ -203,6 +203,13 @@ export const templates: SqlTemplate[] = [
   },
   {
     category: 'mutation',
+    badge: 'INSERT + SELECT',
+    title: 'Bestellung per Namen einfügen',
+    description: 'INSERT mit SELECT: Kunde und Produkt über Namen auflösen („Joins“), statt IDs manuell einzutragen.',
+    sql: "INSERT INTO bestellungen (kunden_id, produkt_id, menge, bestell_datum)\nSELECT k.id, p.id, 1, date('now')\nFROM kunden k, produkte p\nWHERE k.vorname = 'Anna' AND k.nachname = 'Schmidt'\n  AND p.name = 'Laptop';"
+  },
+  {
+    category: 'mutation',
     badge: 'UPDATE',
     title: 'Preis aktualisieren',
     description: 'Bestehende Daten mit UPDATE ändern.',
