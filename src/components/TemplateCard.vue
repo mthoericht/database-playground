@@ -1,7 +1,6 @@
 <template>
   <div
     class="template-card"
-    @click="$emit('run', template.sql)"
   >
     <div class="card-header">
       <span class="badge">{{ template.badge }}</span>
@@ -11,7 +10,7 @@
       {{ template.description }}
     </p>
     <pre class="sql-preview"><code>{{ template.sql }}</code></pre>
-    <button class="btn-primary btn-sm run-btn">
+    <button class="btn-primary btn-sm run-btn" @click="$emit('run', template.sql)">
       ▶ Ausführen
     </button>
   </div>
@@ -35,7 +34,7 @@ defineEmits<{
   border: 1px solid var(--border);
   border-radius: var(--radius);
   padding: 14px;
-  cursor: pointer;
+
   transition: all 0.15s;
   display: flex;
   flex-direction: column;
